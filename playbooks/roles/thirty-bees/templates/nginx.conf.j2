@@ -1,5 +1,6 @@
 server {
     listen 80;
+    server_name thirty.bees;
 
     root /vagrant/thirtybees;
 
@@ -41,7 +42,7 @@ server {
         try_files $uri =404;
         fastcgi_keep_conn on;
         include /etc/nginx/fastcgi_params;
-        fastcgi_pass php70100;
+        fastcgi_pass unix:/var/run/php-thirtybees.sock;
         fastcgi_index index.php;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         fastcgi_param  HTTPS on;
@@ -52,33 +53,4 @@ server {
         fastcgi_busy_buffers_size 256k;
         fastcgi_temp_file_write_size 256k;
     }
-}
-
-
-
-server {
-    listen 8081 default_server;
-    listen [::]:8081 default_server ipv6only=on;
-
-    server_name 192.168.50.4;
-    root {{ document_root }}/thirtybees-standard/web;
-
-    location / {
-        # try to serve file directly, fallback to app.php
-        try_files $uri /app.php$is_args$args;
-    }
-
-    location ~ ^/app\.php(/|$) {
-        fastcgi_pass unix:/var/run/php5-thirtybees.sock;
-        fastcgi_split_path_info ^(.+\.php)(/.*)$;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        # Prevents URIs that include the front controller. This will 404:
-        # http://domain.tld/app.php/some-path
-        # Remove the internal directive to allow URIs like this
-        internal;
-    }
-
-    error_log /var/log/nginx/thirtybees_error.log;
-    access_log /var/log/nginx/thirtybees_access.log;
 }

@@ -17,12 +17,26 @@
 - name: Install required php packages
   apt: name={{ item }} state=present
   with_items:
-    - php{{ php_version }}-mysql
-    - php{{ php_version }}-intl
+    - php{{ php_version }}-bcmath
     - php{{ php_version }}-cli
-    - php{{ php_version }}-mcrypt
-    - php{{ php_version }}-mbstring
+    - php{{ php_version }}-common
+    - php{{ php_version }}-curl
     - php{{ php_version }}-dom
+    - php{{ php_version }}-gd
+    - php{{ php_version }}-imap
+    - php-imagick
+    - php{{ php_version }}-imap
+    - php{{ php_version }}-intl
+    - php{{ php_version }}-json
+    - php{{ php_version }}-mbstring
+    - php{{ php_version }}-mcrypt
+    - php{{ php_version }}-mysql
+    - php{{ php_version }}-opcache
+    - php{{ php_version }}-readline
+    - php-redis
+    - php{{ php_version }}-soap
+    - php{{ php_version }}-xml
+    - php{{ php_version }}-zip
 
 - name: Enable the MCrypt extension
   shell: phpenmod mcrypt
