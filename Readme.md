@@ -42,9 +42,13 @@ By default the script configures a VirtualBox VM with 1 vCPU and 1GB ram. You ca
 #### Hostname
 
 The hostname can be changed by 
-- changing the `server_name` variable in the file `/playbooks/thirty-bees/templates/nginx.conf.j2`
-- and updating the installation command at the step "Install thirty bees itself" in the file `/playbooks/thirty-bees/tasks/main.yml`
+- changing the `server_name` variable in the file `/playbooks/roles/thirty-bees/templates/nginx.conf.j2`
+- and updating the installation command at the step "Install thirty bees itself" in the file `/playbooks/roles/thirty-bees/tasks/main.yml`
 
 #### IP Address
 
 The IP address that the VM uses can be changed in the `Vagrantfile`
+
+#### thirty bees version
+
+The thirty bees version is set in the file `/playbooks/roles/thirty-bees/tasks/main.yml`. The version here refers to the git tag. thirty bees tags every stable release. This allows you to pick any stable release via this file.
