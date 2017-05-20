@@ -1,6 +1,8 @@
 server {
-    listen 80;
-    server_name thirty.bees;
+    listen 8081 default_server;
+    listen [::]:8081 default_server ipv6only=on;
+
+    server_name 192.168.50.4;
 
     root /vagrant/thirtybees;
 

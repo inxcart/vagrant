@@ -23,7 +23,7 @@
     chdir: /vagrant/thirtybees
 
 - name: Install thirtybees itself
-  shell: php ./install-dev/index_cli.php --domain=thirty.bees --db_user=thirtybees --db_password=thirtybees --db_name=thirtybees --db_create --name="thirty bees" --firstname=thirty --lastname=bees --email=test@thirtybees.dev --password=thirtybees --newsletter=0
+  shell: php ./install-dev/index_cli.php --domain=192.168.50.4:8081 --db_user=thirtybees --db_password=thirtybees --db_name=thirtybees --db_create --name="thirty bees" --firstname=thirty --lastname=bees --email=test@thirty.bees --password=thirtybees --newsletter=0
   become: true
   become_user: "{{ www_user }}"
   args:
