@@ -1,14 +1,102 @@
 # Optimized for Vagrant 1.7 and above.
 Vagrant.require_version ">= 1.7.0"
 
-Vagrant.configure(2) do |config|
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  # All Vagrant configuration is done here. The most common configuration
+  # options are documented and commented below. For a complete reference,
+  # please see the online documentation at vagrantup.com.
+
+  # Every Vagrant virtual environment requires a box to build off of.Vagrant.configure(2) do |config|
 
   config.vm.box = "bento/ubuntu-16.04"
+  # The hostname for the VM
+  config.vm.hostname = 'vagrant-thirtybees'
+  
+  # Disable automatic box update checking. If you disable this, then
+  # boxes will only be checked for updates when the user runs
+  # `vagrant box outdated`. This is not recommended.
+  # config.vm.box_check_update = false
 
-  # Disable the new default behavior introduced in Vagrant 1.7, to
-  # ensure that all Vagrant machines will use the same SSH key pair.
-  # See https://github.com/mitchellh/vagrant/issues/5005
-  config.ssh.insert_key = false
+  # Create a forwarded port mapping which allows access to a specific port
+  # within the machine from a port on the host machine. In the example below,
+  # accessing "localhost:8080" will access port 80 on the guest machine.
+  # config.vm.network "forwarded_port", guest: 80, host: 8080
+
+  # Create a private network, which allows host-only access to the machine
+  # using a specific IP.
+  config.vm.network "private_network", ip: "192.168.50.4"
+ # If true, then any SSH connections made will enable agent forwarding.
+  # Default value: false
+  config.ssh.forward_agent = false
+  # Create an entry in the /etc/hosts file for #{hostname}.dev
+  if defined? VagrantPlugins::HostsUpdater
+    config.hostsupdater.aliases = ["#{config.vm.hostname}.dev"]
+  end
+  
+  # Share an additional folder to the guest VM. The first argument is
+  # the path on the host to the actual folder. The second argument is
+  # the path on the guest to mount the folder. And the optional third
+  # argument is a set of non-required options.
+  # config.vm.synced_folder "../data", "/vagrant_data"
+  # Provider-specific configuration so you can fine-tune various
+  # backing providers for Vagrant. These expose provider-specific options.
+  # Example for VirtualBox:
+  #
+  # config.vm.provider "virtualbox" do |vb|
+  #   # Don't boot with headless mode
+  #   vb.gui = true
+  #
+  #   # Use VBoxManage to customize the VM. For example to change memory:
+  #   vb.customize ["modifyvm", :id, "--memory", "1024"]
+  # end
+  config.vm.provider 'virtualbox' do |v,override|
+    v.gui=false
+    v.customize ["modifyvm", :id, "--memory", 1024]
+    v.customize ["modifyvm", :id, "--cpus", "2"]
+    v.customize ["modifyvm", :id, "--vram", "32"]
+    # Video Ram
+    v.customize ['modifyvm',  :id, '--hwvirtex', 'on']
+    # --hwvirtex on|off: This enables or disables the use of hardware virtualization
+    # extensions (Intel VT-x or AMD-V) in the processor of your host system;
+    v.customize ['modifyvm',  :id, '--hpet', 'on']
+    # --hpet on|off: This enables/disables a High Precision Event Timer (HPET)
+    # which can replace the legacy system timers. This is turned off by default.
+    # Note that Windows supports a HPET only from Vista onwards.
+    v.customize ['modifyvm',  :id, '--pagefusion', 'on']
+    # --pagefusion on|off: Enables/disables (default) the Page Fusion feature.
+    # The Page Fusion feature minimises memory duplication between VMs with similar
+    # configurations running on the same host. See Section 4.9.2, “Page Fusion” for details.
+    v.customize ['modifyvm',  :id, '--cpu-profile', 'host']
+    # --cpu-profile <host|intel 80[86|286|386]>: Indicate the use of a profile for guest cpu emulation.
+    # Specify either one based on the host system CPU (host), or one from a number of older Intel
+    # Micro-architectures - 8086, 80286, 80386.
+    v.customize ['modifyvm', :id, '--paravirtprovider', 'kvm']
+    # --paravirtprovider none|default|legacy|minimal|hyperv|kvm: This setting specifies which
+    # paravirtualization interface to provide to the guest operating system.
+    v.customize ['modifyvm', :id, '--chipset', 'ich9']
+    # --chipset piix3|ich9: By default VirtualBox emulates an Intel PIIX3 chipset. 
+    v.customize ["setextradata", "global", "GUI/MaxGuestResolution", "any"]
+    v.customize ["setextradata", :id, "CustomVideoMode1", "1024x768x32"]
+    v.customize ["modifyvm", :id, "--ioapic", "on"]
+    v.customize ["modifyvm", :id, "--rtcuseutc", "on"]
+    v.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
+    v.customize ["modifyvm", :id, "--audio", "none"]
+  end
+["vmware_fusion", "vmware_workstation"].each do |provider|
+      config.vm.provider provider do |v, override|
+        v.gui = true
+        v.vmx["memsize"] = "1048"
+        v.vmx["numvcpus"] = "2"
+        v.vmx["cpuid.coresPerSocket"] = "4"
+        v.vmx["ethernet0.virtualDev"] = "vmxnet3"
+        v.vmx["RemoteDisplay.vnc.enabled"] = "false"
+        v.vmx["RemoteDisplay.vnc.port"] = "5900"
+        v.vmx["scsi0.virtualDev"] = "lsilogic"
+        v.vmx["mks.enable3d"] = "TRUE"
+  end
 
   # Run Ansible from the Vagrant VM
   config.vm.provision "ansible_local" do |ansible|
@@ -17,5 +105,5 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.network "forwarded_port", guest: 80, host: 8080
-  config.vm.network "private_network", ip: "192.168.50.4"
+  
 end
