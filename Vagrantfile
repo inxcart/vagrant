@@ -10,6 +10,11 @@ Vagrant.configure(2) do |config|
   # See https://github.com/mitchellh/vagrant/issues/5005
   config.ssh.insert_key = false
 
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 1024
+    v.cpus = 1
+  end
+
   # Run Ansible from the Vagrant VM
   config.vm.provision "ansible_local" do |ansible|
     ansible.verbose = "vv"
