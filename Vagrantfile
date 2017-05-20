@@ -35,7 +35,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   config.vm.network "private_network", ip: "192.168.50.4"
- # If true, then any SSH connections made will enable agent forwarding.
+  # If true, then any SSH connections made will enable agent forwarding.
   # Default value: false
   config.ssh.forward_agent = false
   # Create an entry in the /etc/hosts file for #{hostname}.dev
@@ -92,23 +92,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
     v.customize ["modifyvm", :id, "--audio", "none"]
   end
-["vmware_fusion", "vmware_workstation"].each do |provider|
-      config.vm.provider provider do |v, override|
-        v.gui = true
-        v.vmx["memsize"] = "1048"
-        v.vmx["numvcpus"] = "2"
-        v.vmx["cpuid.coresPerSocket"] = "4"
-        v.vmx["ethernet0.virtualDev"] = "vmxnet3"
-        v.vmx["RemoteDisplay.vnc.enabled"] = "false"
-        v.vmx["RemoteDisplay.vnc.port"] = "5900"
-        v.vmx["scsi0.virtualDev"] = "lsilogic"
-        v.vmx["mks.enable3d"] = "TRUE"
-  end
 
   # Run Ansible from the Vagrant VM
   config.vm.provision "ansible_local" do |ansible|
     ansible.verbose = "vv"
     ansible.playbook = "playbooks/vagrant.yml"
   end
-
 end
