@@ -1,5 +1,5 @@
 # thirty bees Vagrantfile
-This Vagrantfile will help you get a local instance of thirty bees up and running within no-time. 
+This Vagrantfile will help you get a local instance of thirty bees up and running in no time. 
 The included ansible provisioning script will install and configure a Linux - nginx - PHP - MySQL stack with thirty bees for you.
 
 ## Instructions
