@@ -13,7 +13,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.box = "bento/ubuntu-16.04"
   # The hostname for the VM
-  config.vm.hostname = 'vagrant-thirtybees'
+  config.vm.hostname = 'thirty.bees'
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
