@@ -19,25 +19,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
   # config.vm.box_check_update = false
-
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine. In the example below,
-  # accessing "localhost:8080" will access port 80 on the guest machine.
-  # config.vm.network "forwarded_port", guest: 80, host: 8080
-  config.vm.network "forwarded_port", guest: 80, host: 8080
-  config.vm.network "forwarded_port", guest: 443, host: 446
   
   # Disable the new default behavior introduced in Vagrant 1.7, to
   # ensure that all Vagrant machines will use the same SSH key pair.
   # See https://github.com/mitchellh/vagrant/issues/5005
   config.ssh.insert_key = false
 
-  # Create a private network, which allows host-only access to the machine
-  # using a specific IP.
-  config.vm.network "private_network", ip: "192.168.50.4"
   # If true, then any SSH connections made will enable agent forwarding.
   # Default value: false
   config.ssh.forward_agent = false
+  
   # Create an entry in the /etc/hosts file for #{hostname}.dev
   if defined? VagrantPlugins::HostsUpdater
     config.hostsupdater.aliases = ["#{config.vm.hostname}.dev"]
@@ -62,7 +53,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provider 'virtualbox' do |v,override|
     v.gui=false
     v.customize ["modifyvm", :id, "--memory", 1024]
-    v.customize ["modifyvm", :id, "--cpus", "2"]
+    v.customize ["modifyvm", :id, "--cpus", "1"]
     v.customize ["modifyvm", :id, "--vram", "32"]
     # Video Ram
     v.customize ['modifyvm',  :id, '--hwvirtex', 'on']
@@ -100,5 +91,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
   
   config.vm.network "private_network", ip: "10.0.0.30"
-
 end
