@@ -23,9 +23,12 @@ This will launch an instance at 10.0.0.30, but it'll listen to the hostname `thi
 10.0.0.30 thirty.bees
 ```
 ## Optional Vagrant Plugins
-- `vagrant plugin install vagrant-vbguest`
-- `vagrant plugin install vagrant-hostsupdater`
----
+
+Some optional plugins you can install are:
+- `vagrant plugin install vagrant-vbguest` - Making sure you have VirtualBox' Guest additions on your VM
+- `vagrant plugin install vagrant-hostsupdater` - Make Vagrant update your hosts file in order to automatically assign the custom domain name
+
+## Fine-tuning
 
 Once the instance is up and running, you can reach it via the following URLs:
 - [http://thirty.bees/](http://thirty.bees/) for the Front Office  
