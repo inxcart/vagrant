@@ -98,4 +98,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ansible.verbose = "vv"
     ansible.playbook = "playbooks/vagrant.yml"
   end
+  
+  config.vm.network "private_network", ip: "10.0.0.30"
+
 end

@@ -15,10 +15,19 @@
   become: true
   become_user: "{{ www_user }}"
 
-- name: Install thirtybees project dependencies
-  shell: cd /vagrant/thirtybees-standard && COMPOSER_PROCESS_TIMEOUT={{composer_process_timeout}} composer install
+- name: Install thirty bees project dependencies
+  shell: COMPOSER_PROCESS_TIMEOUT={{composer_process_timeout}} composer install --no-dev
   become: true
   become_user: "{{ www_user }}"
+  args:
+    chdir: /vagrant/thirtybees
+
+- name: Install thirty bees itself
+  shell: php ./install-dev/index_cli.php --domain=thirty.bees --db_user=thirtybees --db_password=thirtybees --db_name=thirtybees --db_create --name="thirty bees" --firstname=thirty --lastname=bees --email=test@thirty.bees --password=thirtybees --newsletter=0
+  become: true
+  become_user: "{{ www_user }}"
+  args:
+    chdir: /vagrant/thirtybees
 
 - name: Copy across new php-fpm pool config for thirtybees
   template:
