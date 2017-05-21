@@ -67,10 +67,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # --pagefusion on|off: Enables/disables (default) the Page Fusion feature.
     # The Page Fusion feature minimises memory duplication between VMs with similar
     # configurations running on the same host. See Section 4.9.2, “Page Fusion” for details.
-    v.customize ['modifyvm',  :id, '--cpu-profile', 'host']
-    # --cpu-profile <host|intel 80[86|286|386]>: Indicate the use of a profile for guest cpu emulation.
-    # Specify either one based on the host system CPU (host), or one from a number of older Intel
-    # Micro-architectures - 8086, 80286, 80386.
     v.customize ['modifyvm', :id, '--paravirtprovider', 'kvm']
     # --paravirtprovider none|default|legacy|minimal|hyperv|kvm: This setting specifies which
     # paravirtualization interface to provide to the guest operating system.
