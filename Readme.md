@@ -22,8 +22,10 @@ This will launch an instance at 10.0.0.30, but it'll listen to the hostname `thi
 # thirty bees vagrant
 10.0.0.30 thirty.bees
 ```
-
-### Login
+## Optional Vagrant Plugins
+- `vagrant plugin install vagrant-vbguest`
+- `vagrant plugin install vagrant-hostsupdater`
+---
 
 Once the instance is up and running, you can reach it via the following URLs:
 - [http://thirty.bees/](http://thirty.bees/) for the Front Office  
