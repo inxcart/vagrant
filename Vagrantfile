@@ -52,37 +52,37 @@ config.vm.provider 'virtualbox' do |v,override|
   #   vb.customize ["modifyvm", :id, "--memory", "1024"]
   # end
   v.gui=false
+
+  # Memory
   v.customize ["modifyvm", :id, "--memory", 1024]
+
+  # CPUs
   v.customize ["modifyvm", :id, "--cpus", "1"]
-  v.customize ["modifyvm", :id, "--vram", "32"]
 
   # Video Ram
-  v.customize ['modifyvm',  :id, '--hwvirtex', 'on']
+  v.customize ["modifyvm", :id, "--vram", "32"]
 
   # --hwvirtex on|off: This enables or disables the use of hardware virtualization
   # extensions (Intel VT-x or AMD-V) in the processor of your host system;
-  v.customize ['modifyvm',  :id, '--hpet', 'on']
+  v.customize ['modifyvm', :id, '--hwvirtex', 'on']
 
   # --hpet on|off: This enables/disables a High Precision Event Timer (HPET)
   # which can replace the legacy system timers. This is turned off by default.
   # Note that Windows supports a HPET only from Vista onwards.
-  v.customize ['modifyvm',  :id, '--pagefusion', 'on']
+  v.customize ['modifyvm', :id, '--hpet', 'on']
 
   # --pagefusion on|off: Enables/disables (default) the Page Fusion feature.
   # The Page Fusion feature minimises memory duplication between VMs with similar
   # configurations running on the same host. See Section 4.9.2, “Page Fusion” for details.
-  v.customize ['modifyvm',  :id, '--cpu-profile', 'host']
-
-  # --cpu-profile <host|intel 80[86|286|386]>: Indicate the use of a profile for guest cpu emulation.
-  # Specify either one based on the host system CPU (host), or one from a number of older Intel
-  # Micro-architectures - 8086, 80286, 80386.
-  v.customize ['modifyvm', :id, '--paravirtprovider', 'kvm']
+  v.customize ['modifyvm', :id, '--pagefusion', 'on']
 
   # --paravirtprovider none|default|legacy|minimal|hyperv|kvm: This setting specifies which
   # paravirtualization interface to provide to the guest operating system.
-  v.customize ['modifyvm', :id, '--chipset', 'ich9']
+  v.customize ['modifyvm', :id, '--paravirtprovider', 'kvm']
 
   # --chipset piix3|ich9: By default VirtualBox emulates an Intel PIIX3 chipset.
+  v.customize ['modifyvm', :id, '--chipset', 'ich9']
+
   v.customize ["setextradata", "global", "GUI/MaxGuestResolution", "any"]
   v.customize ["setextradata", :id, "CustomVideoMode1", "1024x768x32"]
   v.customize ["modifyvm", :id, "--ioapic", "on"]
