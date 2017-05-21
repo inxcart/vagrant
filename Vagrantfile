@@ -13,7 +13,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.box = "bento/ubuntu-16.04"
   # The hostname for the VM
-  config.vm.hostname = 'thirty.bees'
+  config.vm.hostname = "thirty.bees"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -34,7 +34,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.hostsupdater.aliases = ["#{config.vm.hostname}"]
   end
 
-  config.vm.provider 'virtualbox' do |v,override|
+  config.vm.provider "virtualbox" do |v,override|
     # Share an additional folder to the guest VM. The first argument is
     # the path on the host to the actual folder. The second argument is
     # the path on the guest to mount the folder. And the optional third
@@ -64,24 +64,24 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # --hwvirtex on|off: This enables or disables the use of hardware virtualization
     # extensions (Intel VT-x or AMD-V) in the processor of your host system;
-    v.customize ['modifyvm', :id, '--hwvirtex', 'on']
+    v.customize ["modifyvm", :id, "--hwvirtex", "on"]
 
     # --hpet on|off: This enables/disables a High Precision Event Timer (HPET)
     # which can replace the legacy system timers. This is turned off by default.
     # Note that Windows supports a HPET only from Vista onwards.
-    v.customize ['modifyvm', :id, '--hpet', 'on']
+    v.customize ["modifyvm", :id, "--hpet", "on"]
 
     # --pagefusion on|off: Enables/disables (default) the Page Fusion feature.
     # The Page Fusion feature minimises memory duplication between VMs with similar
     # configurations running on the same host. See Section 4.9.2, “Page Fusion” for details.
-    v.customize ['modifyvm', :id, '--pagefusion', 'on']
+    v.customize ["modifyvm", :id, "--pagefusion", "on"]
 
     # --paravirtprovider none|default|legacy|minimal|hyperv|kvm: This setting specifies which
     # paravirtualization interface to provide to the guest operating system.
-    v.customize ['modifyvm', :id, '--paravirtprovider', 'kvm']
+    v.customize ["modifyvm", :id, "--paravirtprovider", "kvm"]
 
     # --chipset piix3|ich9: By default VirtualBox emulates an Intel PIIX3 chipset.
-    v.customize ['modifyvm', :id, '--chipset', 'ich9']
+    v.customize ["modifyvm", :id, "--chipset", "ich9"]
 
     v.customize ["setextradata", "global", "GUI/MaxGuestResolution", "any"]
     v.customize ["setextradata", :id, "CustomVideoMode1", "1024x768x32"]
