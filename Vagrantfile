@@ -78,7 +78,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # --paravirtprovider none|default|legacy|minimal|hyperv|kvm: This setting specifies which
     # paravirtualization interface to provide to the guest operating system.
-    v.customize ['modifyvm', :id, '--paravirtprovider', 'kvm']
+    v.customize ["modifyvm", :id, "--paravirtprovider", "kvm"]
 
     # --chipset piix3|ich9: By default VirtualBox emulates an Intel PIIX3 chipset.
     v.customize ["modifyvm", :id, "--chipset", "ich9"]
