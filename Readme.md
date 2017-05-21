@@ -28,7 +28,7 @@ Some optional plugins you can install are:
 - `vagrant plugin install vagrant-vbguest` - Making sure you have VirtualBox' Guest additions on your VM
 - `vagrant plugin install vagrant-hostsupdater` - Make Vagrant update your hosts file in order to automatically assign the custom domain name
 
-## Fine-tuning
+## Login
 
 Once the instance is up and running, you can reach it via the following URLs:
 - [http://thirty.bees/](http://thirty.bees/) for the Front Office  
@@ -38,22 +38,22 @@ The admin panel credentials are:
 - username: `test@thirty.bees`  
 - password: `thirtybees`
 
-### Fine-tuning
+## Fine-tuning
 
-#### Server specs
+### Server specs
 
 By default the script configures a VirtualBox VM with 1 vCPU and 1GB ram. You can change these values in the `Vagrantfile`.
 
-#### Hostname
+### Hostname
 
 The hostname can be changed by 
 - changing the `server_name` variable in the file `/playbooks/roles/thirty-bees/templates/nginx.conf.j2`
 - and updating the installation command at the step "Install thirty bees itself" in the file `/playbooks/roles/thirty-bees/tasks/main.yml`
 
-#### IP Address
+### IP Address
 
 The IP address that the VM uses can be changed in the `Vagrantfile`
 
-#### thirty bees version
+### thirty bees version
 
 The thirty bees version is set in the file `/playbooks/roles/thirty-bees/tasks/main.yml`. The version here refers to the git tag. thirty bees tags every stable release. This allows you to pick any stable release via this file.
