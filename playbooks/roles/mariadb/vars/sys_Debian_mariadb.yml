@@ -1,0 +1,8 @@
+---
+rdbms_packages:
+  - mariadb-server
+  - python-mysqldb
+rdbms_service: mysql
+log_file: /var/log/mysql.log
+socket: /var/run/mysqld/mysqld.sock
+

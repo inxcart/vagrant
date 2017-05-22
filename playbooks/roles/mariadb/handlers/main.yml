@@ -1,0 +1,5 @@
+---
+- name: restart rdms
+  service:
+    name: "{{ rdms_service }}"
+    state: restarted

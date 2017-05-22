@@ -1,0 +1,16 @@
+[mysqld]
+datadir=/var/lib/mysql
+socket={{ socket }}
+user=mysql
+# Disabling symbolic-links is recommended to prevent assorted security risks
+symbolic-links=0
+bind-address            = 10.0.0.30
+
+[mysqld_safe]
+
+log-error={{ log_file }}
+pid-file=/var/run/mysqld/mysqld.pid
+
+# applications manipulating data need more than the 4MB default
+max_allowed_packet = 16M
+

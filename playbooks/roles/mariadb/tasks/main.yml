@@ -1,0 +1,54 @@
+---
+- set_fact: rdbms=mariadb
+
+- set_fact: rdbms=mysql
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_major_version|int < 14
+
+# fix once https://github.com/ansible/ansible/pull/17782
+- set_fact: rdbms_root_pw="{{ lookup('password', '~/' + rdbms + '_root_password_' + ansible_fqdn + ' length=15') }}"
+  no_log: True
+
+- include_vars: "{{ item }}"
+  with_first_found:
+    - "sys_{{ ansible_distribution }}_{{ rdbms }}.yml"
+    - "sys_{{ ansible_os_family }}_{{ rdbms }}.yml"
+
+- name: Install database packages
+  package:
+    name: "{{ item }}"
+    state: installed
+  with_items: "{{ rdbms_packages }}"
+
+- name: Deploy mariadb configuration
+  template:
+    src: custom.cnf
+    dest: /etc/my.cnf.d/custom.cnf
+  notify: restart rdbms
+  when: rdbms == 'mariadb'
+
+- name: Deploy mysql configuration
+  template:
+    src: my.server.cnf
+    dest: /etc/my.cnf
+  notify: restart rdbms
+  when: rdbms == 'mysql'
+
+- name: "Start the {{ rdbms_service }} service"
+  service:
+    name: "{{ rdbms_service }}"
+    enabled: yes
+    state: started
+
+- name: Set database admin password
+  mysql_user:
+    name: root
+    password: "{{ rdbms_root_pw }}"
+
+- name: Deploy the client configuration
+  template:
+    src: my.client.cnf
+    dest: /root/.my.cnf
+    mode: 600
+    owner: root
+    group: root
+  no_log: True
