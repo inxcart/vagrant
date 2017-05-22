@@ -19,13 +19,6 @@
     state: installed
   with_items: "{{ rdbms_packages }}"
 
-- name: Deploy mariadb configuration
-  template:
-    src: custom.cnf
-    dest: /etc/my.cnf.d/custom.cnf
-  notify: restart rdbms
-  when: rdbms == 'mariadb'
-
 - name: Deploy mysql configuration
   template:
     src: my.server.cnf
