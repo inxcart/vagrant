@@ -5,7 +5,7 @@ socket                         = {{ socket }}
 
 [mysqld]
 # General Settings #
-default-storage-engine   = InnoDB
+default-storage-engine   = {{ db-storage }}
 performance_schema = off
 socket={{ socket }}
 pid-file={{ pid }}
@@ -15,52 +15,52 @@ symbolic-links=0
 bind-address            = 10.0.0.30
 
 # DATA STORAGE #
-datadir                        = /var/lib/mysql/
+datadir                        = {{ data_dir }}
 
 # MyISAM #
-key-buffer-size                = 32M
-myisam-recover                 = FORCE,BACKUP
+key-buffer-size                = {{ key-buff }}
+myisam-recover                 = {{ myisam-recover }}
 
 # SAFETY #
-max-allowed-packet             = 16M
-max-connect-errors             = 1000000
+max-allowed-packet             = {{ max-packet }}
+max-connect-errors             = {{ max-con-err }}
 skip-name-resolve
-sql-mode                       = STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_AUTO_VALUE_ON_ZERO,NO_ENGINE_SUBSTITUTION,NO_ZERO_DATE,NO_ZERO_IN_DATE,ONLY_FULL_GROUP_BY
-sysdate-is-now                 = 1
-innodb                         = FORCE
+sql-mode                       = {{ sql-mode }}
+sysdate-is-now                 = {{ sysdate-is-now }}
+innodb                         = {{ innodb }}
 
 # DATA STORAGE #
-datadir                        = /var/lib/mysql/
+datadir                        = {{ data_dir }}
 
 # BINARY LOGGING #
-log-bin                        = /var/lib/mysql/mysql-bin
-expire-logs-days               = 14
-sync-binlog                    = 1
+log-bin                        = {{ log-bin }}
+expire-logs-days               = {{ expire-logs-days }}
+sync-binlog                    = {{ sync-binlog }}
 
 # CACHES AND LIMITS #
-tmp-table-size                 = 32M
-max-heap-table-size            = 32M
-query-cache-type               = 0
-query-cache-size               = 0
-max-connections                = 500
-thread-cache-size              = 50
-open-files-limit               = 65535
-table-definition-cache         = 4096
-table-open-cache               = 4096
+tmp-table-size                 = {{ tmp-table-size }}
+max-heap-table-size            = {{ max-heap-table-size }}
+query-cache-type               = {{ query-cache-type }}
+query-cache-size               = {{ query-cache-size }}
+max-connections                = {{ max-connections }}
+thread-cache-size              = {{ thread-cache-size }}
+open-files-limit               = {{ open-files-limit }}
+table-definition-cache         = {{ table-definition-cache }}
+table-open-cache               = {{ table-open-cache }}
 
 # INNODB #
-innodb-flush-method            = O_DIRECT
-innodb-log-files-in-group      = 2
-innodb-log-file-size           = 128M
-innodb-flush-log-at-trx-commit = 1
-innodb-file-per-table          = 1
-innodb-buffer-pool-size        = 1456M
+innodb-flush-method            = {{ innodb-flush-method }}
+innodb-log-files-in-group      = {{ innodb-log-files-in-group }}
+innodb-log-file-size           = {{ innodb-log-file-size }}
+innodb-flush-log-at-trx-commit = {{ innodb-flush-log-at-trx-commit }}
+innodb-file-per-table          = {{ innodb-file-per-table }}
+innodb-buffer-pool-size        = {{ innodb-buffer-pool-size }}
 
 # LOGGING #
 log-error                      = {{ log_file }}
-log-queries-not-using-indexes  = 0
-slow-query-log                 = 0
-slow-query-log-file            = /var/lib/mysql/mysql-slow.log
+log-queries-not-using-indexes  = {{ log-queries-not-using-indexes }}
+slow-query-log                 = {{ slow-query-log }}
+slow-query-log-file            = {{ slow-query-log-file }}
 
 [mysqld_safe]
 
