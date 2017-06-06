@@ -1,3 +1,15 @@
+$msg = <<MSG
+------------------------------------------------------
+http://thirty.bees/ for the Front Office
+http://thirty.bees/admin-dev for the Back Office
+
+The admin panel credentials are:
+
+username: test@thirty.bees
+password: thirtybees
+------------------------------------------------------
+MSG
+
 # Optimized for Vagrant 1.7 and above.
 Vagrant.require_version ">= 1.7.0"
 
@@ -95,6 +107,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "ansible_local" do |ansible|
     ansible.verbose = "vv"
     ansible.playbook = "playbooks/vagrant.yml"
+    config.vm.post_up_message = $msg
   end
 
   config.vm.network "private_network", ip: "10.0.0.30"
