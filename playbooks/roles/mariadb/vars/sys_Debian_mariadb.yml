@@ -5,4 +5,4 @@ rdbms_packages:
 rdbms_service: mysql
 log_file: /var/log/mysql.log
 socket: /var/run/mysqld/mysqld.sock
-
+pid: /var/run/mysqld/mysqld.pid
