@@ -54,10 +54,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.gui=false
 
     # Memory
-    v.customize ["modifyvm", :id, "--memory", 1024]
+    v.customize ["modifyvm", :id, "--memory", 2048]
 
     # CPUs
-    v.customize ["modifyvm", :id, "--cpus", "1"]
+    v.customize ["modifyvm", :id, "--cpus", "2"]
 
     # Video Ram
     v.customize ["modifyvm", :id, "--vram", "32"]
