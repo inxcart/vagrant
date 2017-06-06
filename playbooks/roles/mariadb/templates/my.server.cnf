@@ -1,0 +1,74 @@
+[mysql]
+# CLIENT #
+port                           = 3306
+socket                         = {{ socket }}
+
+[mysqld]
+# General Settings #
+default-storage-engine   = {{ db-storage }}
+performance_schema = off
+socket={{ socket }}
+pid-file={{ pid }}
+user=mysql
+# Disabling symbolic-links is recommended to prevent assorted security risks
+symbolic-links=0
+bind-address            = 10.0.0.30
+
+# DATA STORAGE #
+datadir                        = {{ data_dir }}
+
+# MyISAM #
+key-buffer-size                = {{ key-buff }}
+myisam-recover                 = {{ myisam-recover }}
+
+# SAFETY #
+max-allowed-packet             = {{ max-packet }}
+max-connect-errors             = {{ max-con-err }}
+skip-name-resolve
+sql-mode                       = {{ sql-mode }}
+sysdate-is-now                 = {{ sysdate-is-now }}
+innodb                         = {{ innodb }}
+
+# DATA STORAGE #
+datadir                        = {{ data_dir }}
+
+# BINARY LOGGING #
+log-bin                        = {{ log-bin }}
+expire-logs-days               = {{ expire-logs-days }}
+sync-binlog                    = {{ sync-binlog }}
+
+# CACHES AND LIMITS #
+tmp-table-size                 = {{ tmp-table-size }}
+max-heap-table-size            = {{ max-heap-table-size }}
+query-cache-type               = {{ query-cache-type }}
+query-cache-size               = {{ query-cache-size }}
+max-connections                = {{ max-connections }}
+thread-cache-size              = {{ thread-cache-size }}
+open-files-limit               = {{ open-files-limit }}
+table-definition-cache         = {{ table-definition-cache }}
+table-open-cache               = {{ table-open-cache }}
+
+# INNODB #
+innodb-flush-method            = {{ innodb-flush-method }}
+innodb-log-files-in-group      = {{ innodb-log-files-in-group }}
+innodb-log-file-size           = {{ innodb-log-file-size }}
+innodb-flush-log-at-trx-commit = {{ innodb-flush-log-at-trx-commit }}
+innodb-file-per-table          = {{ innodb-file-per-table }}
+innodb-buffer-pool-size        = {{ innodb-buffer-pool-size }}
+
+# LOGGING #
+log-error                      = {{ log_file }}
+log-queries-not-using-indexes  = {{ log-queries-not-using-indexes }}
+slow-query-log                 = {{ slow-query-log }}
+slow-query-log-file            = {{ slow-query-log-file }}
+
+[mysqld_safe]
+
+# This will be passed to all mysql clients
+# It has been reported that passwords should be enclosed with ticks/quotes
+# escpecially if they contain "#" chars...
+# Remember to edit /etc/mysql/debian.cnf when changing the socket location.
+socket		= {{ socket }}
+nice		= 0
+skip_log_error
+syslog
