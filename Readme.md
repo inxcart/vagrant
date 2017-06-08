@@ -42,7 +42,7 @@ The admin panel credentials are:
 
 ### Server specs
 
-By default the script configures a VirtualBox VM with 1 vCPU and 1GB ram. You can change these values in the `Vagrantfile`.
+By default the script configures a VirtualBox VM with 2 vCPUs and 2GB RAM. You can change these values in the `Vagrantfile`.
 
 ### Hostname
 
