@@ -10,7 +10,7 @@
        dest=/vagrant/thirtybees
        depth=1
        recursive=yes
-       version=1.0.1
+       version=1.0.3
        update=no
   become: true
   become_user: "{{ www_user }}"
