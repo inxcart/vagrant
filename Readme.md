@@ -40,6 +40,11 @@ The admin panel credentials are:
 
 ## Fine-tuning
 
+### Vagrant Box Update Notifications
+If you are notified about an update to the base box, issue the following commands:
+- `vagrant box update`
+- `vagrant box prune`
+
 ### Server specs
 
 By default the script configures a VirtualBox VM with 2 vCPUs and 2GB RAM. You can change these values in the `Vagrantfile`.
